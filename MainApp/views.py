@@ -35,12 +35,16 @@ def about(request):
 def item(request, item_id):
     for item_num in items:
         if item_id == item_num['id']:
-            inf = f"""<b>{item_num.get('name')} {item_num.get('quantity')}</b></br>"""
+            inf = f"""<b>{item_num.get('name')} {item_num.get('quantity')}</b></br>
+            <a href='/items'>Back</a>
+            """
             return HttpResponse(inf)
     return HttpResponseNotFound(f'Item whit id = {item_id} not found')
+
 
 def items_list(request):
     result = "<h2>Список товаров</h2> <ol>"
     for item_num in items:
-       result += f"<li>{item_num.get('name')} {item_num.get('quantity')}</li>"
+       result += f"<li><a href='/item/{item_num['id']}'>{item_num.get('name')}</a></li>"
     return HttpResponse(result + "</ol>")
+
