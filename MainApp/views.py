@@ -41,12 +41,15 @@ def about(request):
 def item(request, item_id):
     for item_num in items:
         if item_id == item_num['id']:
-            inf = f"""<b>{item_num.get('name')} {item_num.get('quantity')}</b></br>
-            <a href='/items'>Back</a>
-            """
-            return HttpResponse(inf)
-    return HttpResponseNotFound(f'Item whit id = {item_id} not found')
+            return render(request, "item.html", item_num)
+    # #         inf = f"""<b>{item_num.get('name')} {item_num.get('quantity')}</b></br>
+    # #         <a href='/items'>Back</a>
+    # #         """
+    #         return HttpResponse(item_num)
+    return HttpResponseNotFound(f'Item with id = {item_id} not found')
 
+       
+    
 
 def items_list(request):
     context = {
@@ -56,6 +59,5 @@ def items_list(request):
     # for item_num in items:
     #    result += f"<li><a href='/item/{item_num['id']}'>{item_num.get('name')}</a></li>"
     # return HttpResponse(result + "</ol>")
-
     return render(request, "items_list.html", context)
 
