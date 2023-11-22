@@ -1,5 +1,7 @@
 from django.http import HttpResponse, HttpResponseNotFound 
 from django.shortcuts import render
+from MainApp.models import Item
+from django.core.exceptions import ObjectDoesNotExist
 
 
 author = {
@@ -10,13 +12,6 @@ author = {
     'email': 'anna.esipova@moex.com'
 }
 
-items = [
-   {"id": 1, "name": "Кроссовки abibas" ,"quantity":5},
-   {"id": 2, "name": "Куртка кожаная" ,"quantity":2},
-   {"id": 5, "name": "Coca-cola 1 литр" ,"quantity":12},
-   {"id": 7, "name": "Картофель фри" ,"quantity":0},
-   {"id": 8, "name": "Кепка" ,"quantity":124},
-]
 
 # Create your views here.
 def home(request):
@@ -24,11 +19,8 @@ def home(request):
         "name": 'Anna Esipova',
         "email": 'my_mail@mail.ru'
     }
-
     return render(request, "index.html", context)
-    # text = """<h1>"Изучаем django"</h1>
-    #     <strong>Автор</strong>: <i>Esipova A.D.</i>"""
-    # return HttpResponse(text)
+
 
 def about(request):
     text = f"""Имя: <b>{author.get('name')}</b></br>
@@ -38,26 +30,29 @@ def about(request):
             email: <b>{author.get('email')}</b></br>"""
     return HttpResponse(text)
 
-def item(request, item_id):
-    for item_num in items:
-        if item_id == item_num['id']:
-            return render(request, "item.html", item_num)
-    # #         inf = f"""<b>{item_num.get('name')} {item_num.get('quantity')}</b></br>
-    # #         <a href='/items'>Back</a>
-    # #         """
-    #         return HttpResponse(item_num)
-    return HttpResponseNotFound(f'Item with id = {item_id} not found')
 
-       
-    
+def item(request, id):
+    try:
+        item = Item.objects.get(id = id)
+    except ObjectDoesNotExist:
+        return HttpResponseNotFound(f'Item with id = {id} not found')
+    else:
+        context = {
+            'item': item
+        }
+        return render(request, "item.html", context)
+ 
+    # for item_num in items:
+    #     if item_id == item_num['id']:
+    #         return render(request, "item.html", item_num)
+    # return HttpResponseNotFound(f'Item with id = {item_id} not found')
+
+        
 
 def items_list(request):
+    items = Item.objects.all()
     context = {
         "items": items
     }
-    # result = "<h2>Список товаров</h2> <ol>"
-    # for item_num in items:
-    #    result += f"<li><a href='/item/{item_num['id']}'>{item_num.get('name')}</a></li>"
-    # return HttpResponse(result + "</ol>")
     return render(request, "items_list.html", context)
 

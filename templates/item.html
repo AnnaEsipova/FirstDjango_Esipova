@@ -9,8 +9,8 @@
 
 
 
-    Item: {{ name }}<br>
-    <div>Qty: {{ quantity| default:"Item is absent" }}</div>  
+    Item: {{ item.name }}<br>
+    <div>Qty: {{ item.count| default:"Item is absent" }}</div>  
     <!-- {% if quantity == 0 %}
     Item is absent<br>
     {% else %}
