@@ -10,6 +10,7 @@
             display: inline-block;
             border: 1px solid blue;
             padding: 10px 20px;
+            text-align: center;
         }
         a {
             text-decoration: none;
@@ -25,6 +26,7 @@
         {% for item in items %}
             <li>
                 <a href="{% url 'item-detail' item.id %}">{{ item.name }}</a>
+                <p>{{ item.description }}</p>
             </li>
         {% endfor %}
     </ol>
