@@ -1,22 +1,16 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+{% extends 'base.html' %}
+
+{% block title %}
     <title>Item</title>
-</head>
-<body>
+{% endblock %}
 
+{% block content %}
+    {% include 'inc-menu.html' %}
 
+    <h2>{{ item.name }}</h2>
+    <div>{{ item.brand }}</div>
+    <div>Qty: {{ item.count| default:"Item is absent" }}</div>
+    <a href="{% url 'items-list' %}">Back</a>
 
-    Item: {{ item.name }}<br>
-    <div>Qty: {{ item.count| default:"Item is absent" }}</div>  
-    <!-- {% if quantity == 0 %}
-    Item is absent<br>
-    {% else %}
-    Qty: {{quantity}}<br>
-    {% endif %}
-    <a href='/items'>Back</a> -->
-    
-</body>
-</html>
+{% endblock %}
+

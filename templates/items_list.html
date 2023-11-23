@@ -1,21 +1,31 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Items</title>
-</head>
-<body>
-    <h2> Список товаров</h2>
+{% extends 'base.html' %}
 
+{% block title %}
+    <title>Items list</title>
+{% endblock %}
+
+{% block style %}
+    <style>
+        li {
+            display: inline-block;
+            border: 1px solid blue;
+            padding: 10px 20px;
+        }
+        a {
+            text-decoration: none;
+            color: #2aaa9f;
+        }
+    </style>
+{% endblock %}
+
+{% block content %}
+    {% include 'inc-menu.html' %}
+    <h2> Список товаров</h2>
     <ol>
         {% for item in items %}
-            <li><a href="/item/{{item.id}}">{{ item.name }}</a></li>
+            <li>
+                <a href="{% url 'item-detail' item.id %}">{{ item.name }}</a>
+            </li>
         {% endfor %}
     </ol>
-    <p></p>
-    <a href="/">Main page</a>
-
-    
-</body>
-</html>
+{% endblock %}

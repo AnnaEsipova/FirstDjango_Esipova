@@ -1,22 +1,20 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Main page</title>
-</head>
-<body>
-    <header>
-        / <a href="/">Home</a> / <a href="/items">Список товаров</a> / <a href="/about">About</a> /
-    </header>
-    <h1>Приветствую!</h1>
-    
-    My name is {{name}}. <br>
+{% extends 'base.html' %}
+
+{% block title %}
+    <title>Main Page</title>
+{% endblock %}
+
+{% block content %}
+    {% include 'inc-menu.html' %}
+    <h1 class="demo">hallo!</h1>
+    <span style="color: blue;">My name is {{name}}.</span><br>
     My mail: {{email}}. <br>
     Это главная страница сайта.<br>
     <i>Сайт пока в разработке...</i>
-    <p></p>
+{% endblock %}
 
-    
-</body>
-</html>
+
+        <!-- / <a href="/">Home</a> / <a href="/items">Список товаров</a> / <a href="/about">About</a> / -->
+ 
+
+ 
