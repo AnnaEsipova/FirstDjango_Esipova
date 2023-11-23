@@ -10,3 +10,5 @@ class Item(models.Model):
 
    def __repr__(self):
       return f'Item{self.name, self.brand, self.count, self.description}'
+   
+# class Colors(models.Model):
